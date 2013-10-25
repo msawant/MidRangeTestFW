@@ -6,7 +6,7 @@
 
 
 
---args 0x2000
+--args 0x200
 -heap  0x30000
 -stack 0x30000
 

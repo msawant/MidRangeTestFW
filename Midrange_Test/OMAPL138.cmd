@@ -18,7 +18,7 @@
 /****************************************************************************/
 --args 0x200
 -heap  0x300000
--stack 0x100000
+-stack 0x300000
 
 
 MEMORY
@@ -56,10 +56,10 @@ SECTIONS
 {
     .text          >  DDR2
     .stack         >  DDR2
-    .bss           >  SHRAM
-    .cio           >  SHRAM
-    .const         >  SHRAM
-    .data          >  SHRAM
+    .bss           >  DDR2
+    .cio           >  DDR2
+    .const         >  DDR2 START(const_start) SIZE(const_size)
+    .data          >  DDR2
     .switch        >  SHRAM
     .sysmem        >  DDR2
     .far           >  SHRAM

@@ -103,8 +103,13 @@ std::string &rResponseText	// reference string to place the response text
 				break;
 			case 10:
 				sscanf(Argv[2].c_str(),"%d",&subArg);
-				bufferADCValues(subArg);
+				adcRingBuff(subArg);
 				sprintf(responseBuffer, "\nCaptured %d samples to the Buffer",subArg);
+				break;
+			case 11:
+				sscanf(Argv[2].c_str(),"%d",&subArg);
+				verifyADCScaleRegisters();
+				sprintf(responseBuffer, "\nCompleted ADC Scale Register Testr",subArg);
 				break;
 			default:
 				sprintf(responseBuffer, "Nothing Done. No such Case. Running Case %d %d", code, subArg);
