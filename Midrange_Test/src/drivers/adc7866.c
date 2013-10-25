@@ -293,14 +293,14 @@ int adcRingBuff(int countOfSamples){
 
 	for(count = 0;count<countOfSamples;count++){
 		ringBufS_put(&adcBuff1A, adc_regs_test->PADC1A_S.bits.ADCVALUE);
-		ringBufS_put(&adcBuff1B, adc_regs->PADC1B_S);
-		ringBufS_put(&adcBuff2A, adc_regs->PADC2A_S);
-		ringBufS_put(&adcBuff2B, adc_regs->PADC2B_S);
+		ringBufS_put(&adcBuff1B, adc_regs_test->PADC1B_S.bits.ADCVALUE);
+		ringBufS_put(&adcBuff2A, adc_regs_test->PADC2A_S.bits.ADCVALUE);
+		ringBufS_put(&adcBuff2B, adc_regs_test->PADC2B_S.bits.ADCVALUE);
 	}
-	printf("Reading Values \n%-10 |%-10s|%-10s|%-10s|%-10s	\n", "PADC1A","PADC1B","PADC2A","PADC2B");
+	printf("Reading 12bit Values \n%-10 |%-10s|%-10s|%-10s|%-10s	\n", "PADC1A","PADC1B","PADC2A","PADC2B");
 
 	for(count = 0;count<countOfSamples;count++){
-		printf("%-10 |%-10X |%-10X |%-10X |%-10X\n",ringBufS_get(&adcBuff1A),ringBufS_get(&adcBuff1B),ringBufS_get(&adcBuff2A),ringBufS_get(&adcBuff2B));
+		printf("%-10 |%-10X|%-10X|%-10X|%-10X\n",ringBufS_get(&adcBuff1A),ringBufS_get(&adcBuff1B),ringBufS_get(&adcBuff2A),ringBufS_get(&adcBuff2B));
 	}
 
 	ringBufS_empty(&adcBuff1A);
