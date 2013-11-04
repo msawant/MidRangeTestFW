@@ -6,6 +6,8 @@
 #include <ti/pspiom/cslr/cslr.h>
 #include <ti/pspiom/cslr/soc_OMAPL138.h>
 #include <ti/pspiom/cslr/cslr_gpio.h>
+#include <ti/pspiom/cslr/cslr_syscfg1_OMAPL138.h>
+#include <ti/pspiom/cslr/cslr_psc_OMAPL138.h>
 
 // define the test case ID number
 #define TEST_CASE_ID_GPIO	(40)

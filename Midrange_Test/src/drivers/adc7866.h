@@ -39,22 +39,22 @@ union PADCREG{
 	struct PADCREG_BITS bits;
 };
 
-typedef struct{
-	volatile uint16 ADC7866_DELPADC;
-	volatile uint16 PADCCNT;
-	volatile uint16 PADC1A_OFF;
-	volatile uint16 PADC1B_OFF;
-	volatile uint16 PADC2A_OFF;
-	volatile uint16 PADC2B_OFF;
-	volatile uint16 PADC1A_SCALE;
-	volatile uint16 PADC1B_SCALE;
-	volatile uint16 PADC2A_SCALE;
-	volatile uint16 PADC2B_SCALE;
-	volatile uint16 PADC1A_S;
-	volatile uint16 PADC1B_S;
-	volatile uint16 PADC2A_S;
-	volatile uint16 PADC2B_S;
-}ADC7866_Regs;
+//typedef struct{
+//	volatile uint16 ADC7866_DELPADC;
+//	volatile uint16 PADCCNT;
+//	volatile uint16 PADC1A_OFF;
+//	volatile uint16 PADC1B_OFF;
+//	volatile uint16 PADC2A_OFF;
+//	volatile uint16 PADC2B_OFF;
+//	volatile uint16 PADC1A_SCALE;
+//	volatile uint16 PADC1B_SCALE;
+//	volatile uint16 PADC2A_SCALE;
+//	volatile uint16 PADC2B_SCALE;
+//	volatile uint16 PADC1A_S;
+//	volatile uint16 PADC1B_S;
+//	volatile uint16 PADC2A_S;
+//	volatile uint16 PADC2B_S;
+//}ADC7866_Regs;
 
 typedef struct{
 	volatile uint16 ADC7866_DELPADC;
@@ -71,7 +71,7 @@ typedef struct{
 	union PADCREG PADC1B_S;
 	union PADCREG PADC2A_S;
 	union PADCREG PADC2B_S;
-}ADC7866_Regs_Test;
+}ADC7866_Regs;
 
 
 typedef struct{
@@ -97,7 +97,7 @@ typedef struct{
 typedef volatile ADC7866_Regs             *ADC7866_RegsOvly;
 typedef volatile ADC7866_LineLossReg      *ADC7866_LineLossRegOvly;
 typedef volatile ADC7866_Scratch_ID      *ADC7866_ScratchIDRegOvly;
-typedef volatile ADC7866_Regs_Test      *ADC7866_RegsOvly_Test;
+//typedef volatile ADC7866_Regs_Test      *ADC7866_RegsOvly_Test;
 
 #ifdef __cplusplus
 extern "C" {
@@ -110,13 +110,8 @@ int adc7866_get_channel_a();
 int adc7866_get_channel_b();
 int SetADCCountsPerChannel(int);
 int SetADCDelay(int );
-void popFrontOfADCBuffer();
-void pushToBackADCBuffer();
-void freeADCBuffer();
-void initADCBuffer();
 int initADC7866Default();
-int bufferADCValues(int);
-int adcRingBuff(int);
+int captureADCValuesToBuff(int);
 int verifyADCScaleRegisters();
 
 #ifdef __cplusplus

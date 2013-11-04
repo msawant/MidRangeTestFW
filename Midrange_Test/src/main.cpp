@@ -1,7 +1,11 @@
-#define HPI_TEST
-
 #include "utils/Io_Stream.hpp"
 #include "Datatypes.h"
+
+//Include Drivers
+#include "drivers/gpio.h"
+#include "drivers/emif.h"
+
+//Include TestCases Headers
 #include "TestCases/MasterTestCase.hpp"  			//0
 #include "TestCases/TimeKeeperTestCase.hpp"  		//1
 #include "TestCases/DDRReadTestCase.hpp"
@@ -18,10 +22,9 @@
 #include "TestCases/EEPROMTestCase.hpp"
 #include "TestCases/EMIFCSSpillTestCase.hpp"
 #include "TestCases/LCDTestCase.hpp"
-#include "Drivers/gpio.h"
 #include "TestCases/UnivFbkTestCase.hpp"
 #include "TestCases/DIGINTestCase.hpp"
-// ****** INCLUDE NEW TEST CASE HEADERS HERE ****** //
+
 
 
 #define MAX_ARGS		(16)
@@ -58,9 +61,10 @@ int main(){
     pTestCaseArray[testCaseArrayIndex++] = new UnivFbkTestCase();               //60
 	pTestCaseArray[testCaseArrayIndex++] = new DIGINTestCase();               	//70
 	pTestCaseArray[testCaseArrayIndex++] = new TimeKeeperTestCase();			//01
-	// Perform Autonomous Tests
-	printf("\n \n Performing Autonomous MidRange Testing \n \n");
-	
+
+	//System Initialization
+	initEMIF();
+
 	// Run Test Cases Independently
 	//responseText = "Autonomous Test";
 

@@ -1,14 +1,8 @@
 #include "GPIOTestCase.hpp"
 
 #include <stdio.h>
-#include <ti/pspiom/cslr/cslr.h>
-#include <ti/pspiom/cslr/soc_OMAPL138.h>
-#include <ti/pspiom/cslr/cslr_gpio.h>
-#include <ti/pspiom/cslr/cslr_syscfg1_OMAPL138.h>
-#include <ti/pspiom/cslr/cslr_psc_OMAPL138.h>
 
-CSL_Syscfg1RegsOvly   sysRegs  = (CSL_Syscfg1RegsOvly)(CSL_SYSCFG_0_REGS);
-CSL_PscRegsOvly      psc1Regs = (CSL_PscRegsOvly)(CSL_PSC_1_REGS);
+
 CSL_GpioRegsOvly     gpioRegs = (CSL_GpioRegsOvly)(CSL_GPIO_0_REGS);
 
 // class constructor

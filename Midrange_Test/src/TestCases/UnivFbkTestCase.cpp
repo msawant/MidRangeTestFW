@@ -2,6 +2,8 @@
 #include "drivers/univ_fbk_uart.h"
 #include "drivers/adc7866.h"
 #include "drivers/timekeeper.h"
+#include "drivers/sincos.h"
+
 //Base Class Constructor
 //Constructor
 UnivFbkTestCase::UnivFbkTestCase()
@@ -26,17 +28,17 @@ std::string &rResponseText	// reference string to place the response text
 	if (Argc >= UNIV_FBK_REQUIRED_ARGS && Argc <= UNIV_FBK_MAX_ARGS)
 	{	uint16 code = 0;
 		int subArg = 0;
-		char *blank="";
 		int bytes = 0;
 		int i;
 		volatile int test;
-		int timer;
+		int timer, scratch_stat;
 		univ_fbk_uart_init_default();
 		char responseBuffer[200];
 		sscanf(Argv[1].c_str(),"%d",&code);
 		SetPseudoTimePeriodUSec(0x0010);
 		initTimekeeperPsudoSup();
-		initADC7866Default();
+
+		uint16 moduleid = adc7866_get_module_id();
 		switch (code) {
 			case 1:
 //				univ_fbk_uart0_init(pLimit, baudRate, parity, parSense);
@@ -64,7 +66,6 @@ std::string &rResponseText	// reference string to place the response text
 				sprintf(responseBuffer, "Sending 500 bytes over UART");
 				break;
 			case 4:
-				uint16 moduleid = adc7866_get_module_id();
 				char *moduleidstat = new char [10];
 				char *scratchStat = new char [10];
 
@@ -75,7 +76,7 @@ std::string &rResponseText	// reference string to place the response text
 					std::strcpy(moduleidstat, "Failed");
 				}
 
-				int scratch_stat;
+
 				scratch_stat = adc7866_test_scratch();
 				sprintf(responseBuffer, "ADC Module ID is %d and has %s \n "
 						"Scratch returned %d (1:Success, 0: Failure)", moduleid, moduleidstat, scratch_stat);
@@ -102,14 +103,20 @@ std::string &rResponseText	// reference string to place the response text
 				sprintf(responseBuffer, "Set DELPADC to %d",subArg);
 				break;
 			case 10:
+				initADC7866Default();
 				sscanf(Argv[2].c_str(),"%d",&subArg);
-				adcRingBuff(subArg);
+				captureADCValuesToBuff(subArg);
 				sprintf(responseBuffer, "\nCaptured %d samples to the Buffer",subArg);
 				break;
 			case 11:
 				sscanf(Argv[2].c_str(),"%d",&subArg);
 				verifyADCScaleRegisters();
-				sprintf(responseBuffer, "\nCompleted ADC Scale Register Testr",subArg);
+				sprintf(responseBuffer, "\nCompleted ADC Scale Register Test",subArg);
+				break;
+			case 12:
+				sscanf(Argv[2].c_str(),"%d",&subArg);
+				setSINCOSDelay(subArg);
+				sprintf(responseBuffer, "\nSet SINCOS Block Delay to %X",subArg);
 				break;
 			default:
 				sprintf(responseBuffer, "Nothing Done. No such Case. Running Case %d %d", code, subArg);
